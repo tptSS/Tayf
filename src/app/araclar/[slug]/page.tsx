@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { converters, getConverter } from "@/converters/registry";
@@ -32,6 +32,8 @@ export default async function ToolPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (slug === "pdf-duzenle") redirect("/duzenle");
+
   const converter = getConverter(slug);
   if (!converter) notFound();
 

@@ -10,13 +10,13 @@ export const converters: ConverterSummary[] = [
   {
     slug: "pdf-duzenle",
     title: "PDF düzenleyici",
-    description: "PDF'e metin, imza, şekil ekle; sayfaları düzenle.",
+    description: "PDF'e metin, görsel, şekil ekle; sayfaları düzenle, kaydet.",
     category: "pdf",
     accepts: ["application/pdf"],
     output: "pdf",
     multiple: "none",
     keywords: ["pdf düzenle", "pdf editör"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "pdf-birlestir",
