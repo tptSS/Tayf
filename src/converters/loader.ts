@@ -25,6 +25,16 @@ export const converterLoaders: Record<string, Loader> = {
   "excel-sql": () => import("./data/excel-sql"),
   "sql-csv": () => import("./data/sql-csv"),
   "sql-excel": () => import("./data/sql-excel"),
+  "gorsel-donustur": () => import("./image/gorsel-donustur"),
+  "png-jpg": () => import("./image/png-jpg"),
+  "jpg-png": () => import("./image/jpg-png"),
+  "webp-jpg": () => import("./image/webp-jpg"),
+  "svg-png": () => import("./image/svg-png"),
+  "svg-jpg": () => import("./image/svg-jpg"),
+  "png-ico": () => import("./image/png-ico"),
+  "favicon-olustur": () => import("./image/favicon-olustur"),
+  "gorsel-sikistir": () => import("./image/gorsel-sikistir"),
+  "gorsel-boyutlandir": () => import("./image/gorsel-boyutlandir"),
 };
 
 export async function loadConverter(slug: string): Promise<Converter> {

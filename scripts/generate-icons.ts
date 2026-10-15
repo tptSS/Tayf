@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
-import { packIco } from "./ico-pack";
+import { packIco } from "../src/lib/ico";
 
 const publicDir = path.resolve(import.meta.dirname, "../public");
 

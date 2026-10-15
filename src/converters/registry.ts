@@ -224,13 +224,27 @@ export const converters: ConverterSummary[] = [
   {
     slug: "gorsel-donustur",
     title: "Görsel dönüştür",
-    description: "PNG, JPG, WEBP, AVIF ve HEIC arasında dönüştür.",
+    description: "PNG, JPG ve WEBP arasında dönüştür.",
     category: "image",
-    accepts: [".png", ".jpg", ".jpeg", ".webp", ".avif", ".heic"],
+    accepts: [".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif"],
     output: "png",
     multiple: "batch",
-    keywords: ["png jpg", "webp dönüştür", "heic jpg"],
-    status: "soon",
+    keywords: ["png jpg", "webp dönüştür"],
+    status: "ready",
+    options: [
+      {
+        key: "format",
+        type: "select",
+        label: "Hedef format",
+        defaultValue: "image/png",
+        options: [
+          { value: "image/png", label: "PNG" },
+          { value: "image/jpeg", label: "JPG" },
+          { value: "image/webp", label: "WEBP" },
+        ],
+      },
+      { key: "quality", type: "range", label: "Kalite", defaultValue: 90, min: 10, max: 100, step: 5 },
+    ],
   },
   {
     slug: "png-jpg",
@@ -241,7 +255,10 @@ export const converters: ConverterSummary[] = [
     output: "jpg",
     multiple: "batch",
     keywords: ["png jpg"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "quality", type: "range", label: "Kalite", defaultValue: 90, min: 10, max: 100, step: 5 },
+    ],
   },
   {
     slug: "jpg-png",
@@ -252,7 +269,7 @@ export const converters: ConverterSummary[] = [
     output: "png",
     multiple: "batch",
     keywords: ["jpg png"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "webp-jpg",
@@ -263,7 +280,10 @@ export const converters: ConverterSummary[] = [
     output: "jpg",
     multiple: "batch",
     keywords: ["webp jpg"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "quality", type: "range", label: "Kalite", defaultValue: 90, min: 10, max: 100, step: 5 },
+    ],
   },
   {
     slug: "heic-jpg",
@@ -285,7 +305,10 @@ export const converters: ConverterSummary[] = [
     output: "png",
     multiple: "batch",
     keywords: ["svg png"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "width", type: "number", label: "Genişlik (piksel)", defaultValue: 512, min: 16, max: 4096 },
+    ],
   },
   {
     slug: "svg-jpg",
@@ -296,7 +319,10 @@ export const converters: ConverterSummary[] = [
     output: "jpg",
     multiple: "batch",
     keywords: ["svg jpg"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "width", type: "number", label: "Genişlik (piksel)", defaultValue: 512, min: 16, max: 4096 },
+    ],
   },
   {
     slug: "png-ico",
@@ -307,7 +333,7 @@ export const converters: ConverterSummary[] = [
     output: "ico",
     multiple: "batch",
     keywords: ["png ico", "favicon"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "favicon-olustur",
@@ -318,7 +344,7 @@ export const converters: ConverterSummary[] = [
     output: "zip",
     multiple: "none",
     keywords: ["favicon oluşturucu"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "gorsel-sikistir",
@@ -329,18 +355,26 @@ export const converters: ConverterSummary[] = [
     output: "jpg",
     multiple: "batch",
     keywords: ["görsel sıkıştırma", "resim boyutu küçült"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "quality", type: "range", label: "Kalite", defaultValue: 70, min: 10, max: 100, step: 5 },
+    ],
   },
   {
     slug: "gorsel-boyutlandir",
     title: "Görsel boyutlandır",
-    description: "Piksel ya da yüzde olarak görseli yeniden boyutlandır.",
+    description: "Piksel cinsinden görseli yeniden boyutlandır.",
     category: "image",
     accepts: [".png", ".jpg", ".jpeg", ".webp"],
     output: "png",
     multiple: "batch",
     keywords: ["görsel boyutlandırma", "resim boyutu değiştir"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "width", type: "number", label: "Genişlik (piksel)", defaultValue: 800, min: 1, max: 8000 },
+      { key: "height", type: "number", label: "Yükseklik (piksel)", defaultValue: 600, min: 1, max: 8000 },
+      { key: "lockAspectRatio", type: "toggle", label: "En-boy oranını koru", defaultValue: true },
+    ],
   },
 
   // --- Veri (yeşil) ---
