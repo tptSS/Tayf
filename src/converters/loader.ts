@@ -35,6 +35,16 @@ export const converterLoaders: Record<string, Loader> = {
   "favicon-olustur": () => import("./image/favicon-olustur"),
   "gorsel-sikistir": () => import("./image/gorsel-sikistir"),
   "gorsel-boyutlandir": () => import("./image/gorsel-boyutlandir"),
+  "pdf-birlestir": () => import("./pdf/pdf-birlestir"),
+  "pdf-bol": () => import("./pdf/pdf-bol"),
+  "pdf-filigran": () => import("./pdf/pdf-filigran"),
+  "pdf-sayfa-numarasi": () => import("./pdf/pdf-sayfa-numarasi"),
+  "pdf-jpg": () => import("./pdf/pdf-jpg"),
+  "pdf-png": () => import("./pdf/pdf-png"),
+  "pdf-metin": () => import("./pdf/pdf-metin"),
+  "jpg-pdf": () => import("./pdf/jpg-pdf"),
+  "png-pdf": () => import("./pdf/png-pdf"),
+  "gorsel-pdf": () => import("./pdf/gorsel-pdf"),
 };
 
 export async function loadConverter(slug: string): Promise<Converter> {

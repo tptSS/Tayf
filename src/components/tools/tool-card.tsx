@@ -7,7 +7,11 @@ import { cn } from "@/lib/utils";
 export function ToolCard({ converter }: { converter: ConverterSummary }) {
   return (
     <Link
-      href={converter.slug === "pdf-duzenle" ? "/duzenle" : `/araclar/${converter.slug}`}
+      href={
+        converter.slug === "pdf-duzenle" || converter.slug === "pdf-sayfa-duzenle"
+          ? "/duzenle"
+          : `/araclar/${converter.slug}`
+      }
       className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <div className="flex items-center justify-between gap-2">

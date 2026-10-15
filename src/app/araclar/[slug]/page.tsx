@@ -32,7 +32,7 @@ export default async function ToolPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug === "pdf-duzenle") redirect("/duzenle");
+  if (slug === "pdf-duzenle" || slug === "pdf-sayfa-duzenle") redirect("/duzenle");
 
   const converter = getConverter(slug);
   if (!converter) notFound();

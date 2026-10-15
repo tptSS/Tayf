@@ -38,7 +38,8 @@ export default function HomePage() {
 
   function openTool(slug: string, files: File[]) {
     setPendingFiles(files);
-    router.push(slug === "pdf-duzenle" ? "/duzenle" : `/araclar/${slug}`);
+    const editorSlugs = ["pdf-duzenle", "pdf-sayfa-duzenle"];
+    router.push(editorSlugs.includes(slug) ? "/duzenle" : `/araclar/${slug}`);
   }
 
   return (

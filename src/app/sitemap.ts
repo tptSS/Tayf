@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/hakkinda`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/duzenle`, changeFrequency: "monthly", priority: 0.8 },
     ...converters
-      .filter((c) => c.slug !== "pdf-duzenle")
+      .filter((c) => c.slug !== "pdf-duzenle" && c.slug !== "pdf-sayfa-duzenle")
       .map((c) => ({
         url: `${BASE_URL}/araclar/${c.slug}`,
         changeFrequency: "monthly" as const,
