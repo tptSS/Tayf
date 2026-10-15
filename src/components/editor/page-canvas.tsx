@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useEditorStore, makeId } from "@/lib/editor/store";
 import { renderPageToCanvas } from "@/lib/editor/pdfjs";
 import { screenBoxToPdfBox, type PageMetrics, type Rotation } from "@/lib/editor/coords";
@@ -22,7 +22,15 @@ export function PageCanvas({ pdf, page }: PageCanvasProps) {
 
   const zoom = useEditorStore((s) => s.zoom);
   const tool = useEditorStore((s) => s.tool);
-  const objects = useEditorStore((s) => s.objects.filter((o) => o.pageId === page.id));
+  // Zustand'ın inline seçicisi her çağrıldığında .filter() yeni bir dizi
+  // referansı döndürürse store "değişti" sanıp sonsuz render döngüsüne
+  // girer (React hatası #185). Bunun yerine referansı kararlı olan ham
+  // diziyi seçip filtrelemeyi useMemo'ya bırakıyoruz.
+  const allObjects = useEditorStore((s) => s.objects);
+  const objects = useMemo(
+    () => allObjects.filter((o) => o.pageId === page.id),
+    [allObjects, page.id],
+  );
   const addObject = useEditorStore((s) => s.addObject);
   const selectObject = useEditorStore((s) => s.selectObject);
 
