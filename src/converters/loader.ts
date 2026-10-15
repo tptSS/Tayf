@@ -10,6 +10,21 @@ type Loader = () => Promise<{ default: Converter<any> }>;
  */
 export const converterLoaders: Record<string, Loader> = {
   "csv-json": () => import("./data/csv-json"),
+  "excel-csv": () => import("./data/excel-csv"),
+  "csv-excel": () => import("./data/csv-excel"),
+  "excel-json": () => import("./data/excel-json"),
+  "json-excel": () => import("./data/json-excel"),
+  "json-csv": () => import("./data/json-csv"),
+  "excel-xml": () => import("./data/excel-xml"),
+  "xml-excel": () => import("./data/xml-excel"),
+  "json-xml": () => import("./data/json-xml"),
+  "xml-json": () => import("./data/xml-json"),
+  "json-yaml": () => import("./data/json-yaml"),
+  "yaml-json": () => import("./data/yaml-json"),
+  "csv-sql": () => import("./data/csv-sql"),
+  "excel-sql": () => import("./data/excel-sql"),
+  "sql-csv": () => import("./data/sql-csv"),
+  "sql-excel": () => import("./data/sql-excel"),
 };
 
 export async function loadConverter(slug: string): Promise<Converter> {

@@ -1,4 +1,29 @@
-import type { ConverterSummary } from "./types";
+import type { ConverterSummary, OptionField } from "./types";
+
+const SQL_OPTIONS: OptionField[] = [
+  {
+    key: "dialect",
+    type: "select",
+    label: "Lehçe",
+    defaultValue: "postgresql",
+    options: [
+      { value: "mysql", label: "MySQL" },
+      { value: "postgresql", label: "PostgreSQL" },
+      { value: "sqlserver", label: "SQL Server" },
+      { value: "sqlite", label: "SQLite" },
+    ],
+  },
+  { key: "tableName", type: "text", label: "Tablo adı", defaultValue: "tablo" },
+  { key: "includeCreateTable", type: "toggle", label: "CREATE TABLE ekle", defaultValue: true },
+  {
+    key: "batchSize",
+    type: "number",
+    label: "Toplu INSERT boyutu",
+    defaultValue: 500,
+    min: 1,
+    max: 5000,
+  },
+];
 
 /**
  * Tüm araçların hafif listesi. Henüz yazılmamış araçlar `status: "soon"`
@@ -359,7 +384,7 @@ export const converters: ConverterSummary[] = [
     output: "csv",
     multiple: "batch",
     keywords: ["excel csv"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "csv-excel",
@@ -370,7 +395,7 @@ export const converters: ConverterSummary[] = [
     output: "xlsx",
     multiple: "batch",
     keywords: ["csv excel"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "excel-json",
@@ -381,7 +406,10 @@ export const converters: ConverterSummary[] = [
     output: "json",
     multiple: "batch",
     keywords: ["excel json"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "pretty", type: "toggle", label: "Okunabilir biçimle (girintili)", defaultValue: true },
+    ],
   },
   {
     slug: "json-excel",
@@ -392,7 +420,7 @@ export const converters: ConverterSummary[] = [
     output: "xlsx",
     multiple: "batch",
     keywords: ["json excel"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "json-csv",
@@ -403,7 +431,7 @@ export const converters: ConverterSummary[] = [
     output: "csv",
     multiple: "batch",
     keywords: ["json csv"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "excel-xml",
@@ -414,7 +442,7 @@ export const converters: ConverterSummary[] = [
     output: "xml",
     multiple: "batch",
     keywords: ["excel xml"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "xml-excel",
@@ -425,7 +453,7 @@ export const converters: ConverterSummary[] = [
     output: "xlsx",
     multiple: "batch",
     keywords: ["xml excel"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "json-xml",
@@ -436,7 +464,7 @@ export const converters: ConverterSummary[] = [
     output: "xml",
     multiple: "batch",
     keywords: ["json xml"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "xml-json",
@@ -447,7 +475,10 @@ export const converters: ConverterSummary[] = [
     output: "json",
     multiple: "batch",
     keywords: ["xml json"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "pretty", type: "toggle", label: "Okunabilir biçimle (girintili)", defaultValue: true },
+    ],
   },
   {
     slug: "json-yaml",
@@ -458,7 +489,7 @@ export const converters: ConverterSummary[] = [
     output: "yaml",
     multiple: "batch",
     keywords: ["json yaml"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "yaml-json",
@@ -469,7 +500,10 @@ export const converters: ConverterSummary[] = [
     output: "json",
     multiple: "batch",
     keywords: ["yaml json"],
-    status: "soon",
+    status: "ready",
+    options: [
+      { key: "pretty", type: "toggle", label: "Okunabilir biçimle (girintili)", defaultValue: true },
+    ],
   },
   {
     slug: "excel-sql",
@@ -480,7 +514,8 @@ export const converters: ConverterSummary[] = [
     output: "sql",
     multiple: "batch",
     keywords: ["excel sql", "excel'i sql'e çevirme"],
-    status: "soon",
+    status: "ready",
+    options: SQL_OPTIONS,
   },
   {
     slug: "csv-sql",
@@ -491,7 +526,8 @@ export const converters: ConverterSummary[] = [
     output: "sql",
     multiple: "batch",
     keywords: ["csv sql", "csv'yi sql'e çevirme"],
-    status: "soon",
+    status: "ready",
+    options: SQL_OPTIONS,
   },
   {
     slug: "sql-excel",
@@ -502,7 +538,7 @@ export const converters: ConverterSummary[] = [
     output: "xlsx",
     multiple: "batch",
     keywords: ["sql excel"],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "sql-csv",
@@ -513,7 +549,7 @@ export const converters: ConverterSummary[] = [
     output: "csv",
     multiple: "batch",
     keywords: ["sql csv"],
-    status: "soon",
+    status: "ready",
   },
 
   // --- Belge (mavi) ---
