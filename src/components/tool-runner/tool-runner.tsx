@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDown, ArrowUp, Download, X } from "lucide-react";
+import { motion } from "motion/react";
+import { AlertCircle, ArrowDown, ArrowUp, CheckCircle2, Download, X } from "lucide-react";
 import { toast } from "sonner";
 import type { ConverterSummary, ConvertOutput } from "@/converters/types";
 import { Button } from "@/components/ui/button";
@@ -134,7 +135,7 @@ export function ToolRunner({ converter }: ToolRunnerProps) {
           {files.map((file, index) => (
             <li
               key={`${file.name}-${index}`}
-              className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-3 py-2"
+              className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-3 py-2 transition-colors hover:border-primary/30"
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{file.name}</p>
@@ -225,28 +226,39 @@ export function ToolRunner({ converter }: ToolRunnerProps) {
       {status === "error" && errorMessage && (
         <div
           role="alert"
-          className="rounded-lg border border-pdf/40 bg-pdf/10 px-4 py-3 text-sm text-foreground"
+          className="flex items-start gap-2 rounded-lg border border-pdf/40 bg-pdf/10 px-4 py-3 text-sm text-foreground"
         >
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-pdf" aria-hidden />
           {errorMessage}
         </div>
       )}
 
       {status === "done" && outputs && (
-        <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
-          <p className="font-medium">Hazır.</p>
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex flex-col gap-3 rounded-xl border border-data/30 bg-data/5 p-4"
+        >
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-5 w-5 text-data" aria-hidden />
+            <p className="font-medium">Hazır.</p>
+          </div>
           <p className="text-sm text-muted-foreground">
             {formatBytes(totalInputBytes)} → {formatBytes(totalOutputBytes)}
           </p>
           <ul className="text-sm text-muted-foreground">
             {outputs.map((o) => (
-              <li key={o.name}>{o.name}</li>
+              <li key={o.name} className="truncate">
+                {o.name}
+              </li>
             ))}
           </ul>
           <Button type="button" onClick={handleDownload} className="self-start">
             <Download className="h-4 w-4" />
             İndir
           </Button>
-        </div>
+        </motion.div>
       )}
     </div>
   );

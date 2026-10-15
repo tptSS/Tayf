@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShieldCheck } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dropzone } from "@/components/dropzone/dropzone";
 import { ToolGrid } from "@/components/tools/tool-grid";
-import { CATEGORIES, CATEGORY_LABELS } from "@/lib/categories";
-import { searchConverters, getConvertersForFile } from "@/converters/registry";
+import { CATEGORIES, CATEGORY_ICON, CATEGORY_LABELS } from "@/lib/categories";
+import { converters, searchConverters, getConvertersForFile } from "@/converters/registry";
 import type { Category, ConverterSummary } from "@/converters/types";
 import { detectFileType } from "@/lib/detect";
 import { setPendingFiles } from "@/lib/pending-file-store";
@@ -22,6 +23,11 @@ export default function HomePage() {
     files: File[];
     matches: ConverterSummary[];
   } | null>(null);
+
+  const readyCount = useMemo(
+    () => converters.filter((c) => c.status === "ready").length,
+    [],
+  );
 
   const results = useMemo(() => {
     const base = searchConverters(query);
@@ -45,6 +51,10 @@ export default function HomePage() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10">
       <section className="flex flex-col items-center gap-4 text-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+          <Sparkles className="h-3.5 w-3.5 text-document" aria-hidden />
+          {readyCount}+ ücretsiz araç
+        </span>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Dosyan, istediğin biçimde.
         </h1>
@@ -57,35 +67,49 @@ export default function HomePage() {
           <Dropzone onFiles={handleFiles} />
         </div>
 
-        {suggestion && (
-          <div className="w-full max-w-xl rounded-xl border border-border bg-card p-4 text-left">
-            <p className="mb-3 text-sm font-medium">
-              {suggestion.files.length} dosya için önerilen araçlar:
-            </p>
-            {suggestion.matches.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                Bu dosya türü için henüz uygun bir araç yok.
-              </p>
-            ) : (
-              <ul className="flex flex-col gap-2">
-                {suggestion.matches.map((m) => (
-                  <li key={m.slug}>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      className="w-full justify-start"
-                      disabled={m.status === "soon"}
-                      onClick={() => openTool(m.slug, suggestion.files)}
-                    >
-                      {m.title}
-                      {m.status === "soon" && " (yakında)"}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
+        <AnimatePresence>
+          {suggestion && (
+            <motion.div
+              initial={{ opacity: 0, y: -6, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-xl overflow-hidden"
+            >
+              <div className="rounded-xl border border-border bg-card p-4 text-left shadow-sm">
+                <p className="mb-3 text-sm font-medium">
+                  {suggestion.files.length} dosya için önerilen araçlar:
+                </p>
+                {suggestion.matches.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    Bu dosya türü için henüz uygun bir araç yok.
+                  </p>
+                ) : (
+                  <ul className="flex flex-col gap-2">
+                    {suggestion.matches.map((m) => {
+                      const Icon = CATEGORY_ICON[m.category];
+                      return (
+                        <li key={m.slug}>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            className="w-full justify-start gap-2"
+                            disabled={m.status === "soon"}
+                            onClick={() => openTool(m.slug, suggestion.files)}
+                          >
+                            <Icon className="h-4 w-4" aria-hidden />
+                            {m.title}
+                            {m.status === "soon" && " (yakında)"}
+                          </Button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
 
       <section className="flex flex-col gap-4">

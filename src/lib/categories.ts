@@ -1,3 +1,4 @@
+import { Database, FileStack, FileText, ImageIcon, type LucideIcon } from "lucide-react";
 import type { Category } from "@/converters/types";
 
 export const CATEGORY_LABELS: Record<Category, string> = {
@@ -5,6 +6,13 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   image: "Görsel",
   data: "Veri",
   document: "Belge",
+};
+
+export const CATEGORY_ICON: Record<Category, LucideIcon> = {
+  pdf: FileText,
+  image: ImageIcon,
+  data: Database,
+  document: FileStack,
 };
 
 // Kategori zemin rengi + üzerinde her zaman koyu "ink" metin (WCAG AA).
