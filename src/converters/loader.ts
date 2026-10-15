@@ -45,6 +45,8 @@ export const converterLoaders: Record<string, Loader> = {
   "jpg-pdf": () => import("./pdf/jpg-pdf"),
   "png-pdf": () => import("./pdf/png-pdf"),
   "gorsel-pdf": () => import("./pdf/gorsel-pdf"),
+  "pdf-sifrele": () => import("./pdf/pdf-sifrele"),
+  "pdf-sifre-kaldir": () => import("./pdf/pdf-sifre-kaldir"),
 };
 
 export async function loadConverter(slug: string): Promise<Converter> {

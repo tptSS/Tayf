@@ -27,6 +27,7 @@ export type OptionField =
       step?: number;
     })
   | (OptionFieldBase & { type: "text"; defaultValue: string })
+  | (OptionFieldBase & { type: "password"; defaultValue: string })
   | (OptionFieldBase & { type: "toggle"; defaultValue: boolean })
   | (OptionFieldBase & {
       type: "range";
